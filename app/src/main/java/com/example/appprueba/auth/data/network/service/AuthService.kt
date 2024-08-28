@@ -1,4 +1,19 @@
 package com.example.appprueba.auth.data.network.service
 
-class AuthService {
+import com.example.appprueba.auth.data.network.reponse.LoginResponse
+import com.example.appprueba.auth.data.network.request.LoginRequest
+import com.example.appprueba.auth.data.network.retrofitclient.PatitasClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
+
+class AuthService @Inject constructor(private val patitasClient: PatitasClient){
+
+    suspend fun login(loginRequest: LoginRequest): LoginResponse {
+        return withContext(Dispatchers.IO){
+            val response = patitasClient.login(loginRequest)
+            response.body()!!
+        }
+    }
+
 }
