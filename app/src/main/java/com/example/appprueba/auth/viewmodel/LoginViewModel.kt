@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.appprueba.auth.data.network.reponse.LoginResponse
 import com.example.appprueba.auth.data.network.request.LoginRequest
 import com.example.appprueba.auth.domain.LoginUseCase
+import com.example.appprueba.core.util.Evento
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,8 +24,8 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
     private val _isButtonLoginHabilitado = MutableLiveData<Boolean>()
     var isButtonLoginHabilitado: LiveData<Boolean> = _isButtonLoginHabilitado
 
-    private val _loginResponse = MutableLiveData<LoginResponse>()
-    val loginResponse: LiveData<LoginResponse> = _loginResponse
+    private val _loginResponse = MutableLiveData<Evento<LoginResponse>>()
+    val loginResponse: LiveData<Evento<LoginResponse>> = _loginResponse
 
     fun onValueChanged(usuario: String, password: String){
         _usuario.value = usuario
@@ -37,7 +38,8 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
     fun loginUsuarioPassword(){
         viewModelScope.launch {
             val response = loginUseCase(LoginRequest(usuario.value!!, password.value!!))
-            _loginResponse.value = response
+            _loginResponse.value = Evento(response)
+
         }
     }
 }

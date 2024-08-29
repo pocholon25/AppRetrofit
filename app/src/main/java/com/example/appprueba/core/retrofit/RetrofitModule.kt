@@ -1,6 +1,5 @@
 package com.example.appprueba.core.retrofit
 
-import com.example.appprueba.auth.data.network.retrofitclient.PatitasClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

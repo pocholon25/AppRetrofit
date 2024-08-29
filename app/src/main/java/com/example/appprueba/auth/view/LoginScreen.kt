@@ -198,7 +198,7 @@ fun authButton(
     }, modifier = Modifier.fillMaxWidth(), enabled = botonLoginHabilitado) {
         Text(text = "Acceder")
     }
-    loginResponse?.let {
+    loginResponse?.obtenerContenidoSiCamnbio()?.let {
         response ->
         if (response.rpta){
             navController.navigate(RutaPatitas.homeScreen.path)
